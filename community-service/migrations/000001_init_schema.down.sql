@@ -1,0 +1,3 @@
+DROP TABLE IF EXISTS coworking_bookings CASCADE;
+DROP TABLE IF EXISTS event_registrations CASCADE;
+DROP TABLE IF EXISTS events CASCADE;
