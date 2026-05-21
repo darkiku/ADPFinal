@@ -1,0 +1,58 @@
+syntax = "proto3";
+package proto;
+option go_package = "aitu-superapp/proto";
+
+service EducationService {
+  rpc GetStudentGPA(GPARequest) returns (GPAResponse);
+  rpc SubmitAttendance(AttendanceRequest) returns (AttendanceResponse);
+  rpc EnrollToCourse(EnrollRequest) returns (EnrollResponse);
+  rpc GetExamSchedule(ExamScheduleRequest) returns (ExamScheduleResponse);
+  rpc DropCourse(DropCourseRequest) returns (DropCourseResponse);
+  rpc GetGrades(GetGradesRequest) returns (GetGradesResponse);
+  rpc GetScheduleToday(ScheduleTodayRequest) returns (ScheduleTodayResponse);
+  rpc SearchTeacher(SearchTeacherRequest) returns (SearchTeacherResponse);
+  rpc GetCoursesCatalog(CoursesRequest) returns (CoursesResponse);
+  rpc GetAttendanceStats(AttendanceStatsRequest) returns (AttendanceStatsResponse);
+  rpc GetTeacherOfficeHours(OfficeHoursRequest) returns (OfficeHoursResponse);
+  rpc GetStudentProfile(StudentProfileRequest) returns (StudentProfileResponse);
+}
+
+message GPARequest { string student_id = 1; }
+message GPAResponse { float gpa = 1; }
+
+message AttendanceRequest { string student_id = 1; string schedule_id = 2; string status = 3; string date = 4; }
+message AttendanceResponse { bool success = 1; }
+
+message EnrollRequest { string student_id = 1; string course_id = 2; }
+message EnrollResponse { bool success = 1; string message = 2; }
+
+message ExamScheduleRequest { string student_id = 1; }
+message ExamScheduleResponse { string schedule_json = 1; }
+
+message DropCourseRequest { string student_id = 1; string course_id = 2; }
+message DropCourseResponse { bool success = 1; string message = 2; }
+
+message GetGradesRequest { string student_id = 1; }
+message GradeItem { string subject = 1; float score = 2; string type = 3; }
+message GetGradesResponse { repeated GradeItem grades = 1; }
+
+message ScheduleTodayRequest { string student_id = 1; }
+message ScheduleItem { string time = 1; string subject = 2; string room = 3; string type = 4; }
+message ScheduleTodayResponse { repeated ScheduleItem items = 1; }
+
+message SearchTeacherRequest { string query = 1; }
+message TeacherItem { string name = 1; string department = 2; string email = 3; }
+message SearchTeacherResponse { repeated TeacherItem teachers = 1; }
+
+message CoursesRequest {}
+message CourseItem { string id = 1; string title = 2; int32 credits = 3; string teacher = 4; }
+message CoursesResponse { repeated CourseItem courses = 1; }
+
+message AttendanceStatsRequest { string student_id = 1; }
+message AttendanceStatsResponse { float percent = 1; int32 total = 2; int32 present = 3; }
+
+message OfficeHoursRequest { string teacher_id = 1; }
+message OfficeHoursResponse { string hours = 1; string room = 2; }
+
+message StudentProfileRequest { string student_id = 1; }
+message StudentProfileResponse { string name = 1; string email = 2; string specialty = 3; int32 year = 4; }

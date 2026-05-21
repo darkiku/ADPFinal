@@ -1,0 +1,56 @@
+syntax = "proto3";
+package proto;
+option go_package = "aitu-superapp/proto";
+
+service AdminService {
+  rpc GetAccountBalance(BalanceRequest) returns (BalanceResponse);
+  rpc InitiatePayment(PaymentRequest) returns (PaymentResponse);
+  rpc RequestCertificate(CertificateRequest) returns (CertificateResponse);
+  rpc UpdateStudentProfile(ProfileUpdateRequest) returns (ProfileUpdateResponse);
+  rpc GetFinanceHistory(FinanceHistoryRequest) returns (FinanceHistoryResponse);
+  rpc GetDormitoryInfo(DormitoryRequest) returns (DormitoryResponse);
+  rpc RequestDormRepair(RepairRequest) returns (RepairResponse);
+  rpc GetScholarshipInfo(ScholarshipRequest) returns (ScholarshipResponse);
+  rpc GetLibraryDebts(LibraryDebtsRequest) returns (LibraryDebtsResponse);
+  rpc ReserveLibraryBook(ReserveBookRequest) returns (ReserveBookResponse);
+  rpc GetDocumentStatus(DocStatusRequest) returns (DocStatusResponse);
+  rpc GetLaundryStatus(LaundryRequest) returns (LaundryResponse);
+}
+
+message BalanceRequest { string user_id = 1; }
+message BalanceResponse { float balance = 1; string currency = 2; }
+
+message PaymentRequest { string user_id = 1; float amount = 2; string purpose = 3; }
+message PaymentResponse { bool success = 1; string transaction_id = 2; }
+
+message CertificateRequest { string student_id = 1; string doc_type = 2; }
+message CertificateResponse { string request_id = 1; string status = 2; }
+
+message ProfileUpdateRequest { string student_id = 1; string email = 2; string phone = 3; }
+message ProfileUpdateResponse { bool success = 1; }
+
+message FinanceHistoryRequest { string user_id = 1; }
+message TransactionItem { float amount = 1; string purpose = 2; string date = 3; string type = 4; }
+message FinanceHistoryResponse { repeated TransactionItem transactions = 1; }
+
+message DormitoryRequest { string student_id = 1; }
+message DormitoryResponse { string room = 1; string building = 2; string floor = 3; }
+
+message RepairRequest { string student_id = 1; string description = 2; }
+message RepairResponse { string ticket_id = 1; string status = 2; }
+
+message ScholarshipRequest { string student_id = 1; }
+message ScholarshipResponse { string type = 1; float amount = 2; string currency = 3; string next_payment = 4; }
+
+message LibraryDebtsRequest { string student_id = 1; }
+message LibraryDebtsResponse { repeated string books = 1; float fine = 2; }
+
+message ReserveBookRequest { string student_id = 1; string book_id = 2; string title = 3; }
+message ReserveBookResponse { bool success = 1; string due_date = 2; }
+
+message DocStatusRequest { string student_id = 1; }
+message DocItem { string id = 1; string type = 2; string status = 3; string created_at = 4; }
+message DocStatusResponse { repeated DocItem documents = 1; }
+
+message LaundryRequest { string building = 1; }
+message LaundryResponse { int32 available = 1; int32 total = 2; string next_free = 3; }

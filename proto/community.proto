@@ -1,0 +1,59 @@
+syntax = "proto3";
+package proto;
+option go_package = "aitu-superapp/proto";
+
+service CommunityService {
+  rpc BookCoworkingSpace(BookSpaceRequest) returns (BookSpaceResponse);
+  rpc RegisterForEvent(EventRegistrationRequest) returns (EventRegistrationResponse);
+  rpc CreateMarketplaceAd(AdRequest) returns (AdResponse);
+  rpc SubmitFeedback(FeedbackRequest) returns (FeedbackResponse);
+  rpc GetEventsList(EventsListRequest) returns (EventsListResponse);
+  rpc CancelBooking(CancelBookingRequest) returns (CancelBookingResponse);
+  rpc GetCoworkingSpaces(CoworkingSpacesRequest) returns (CoworkingSpacesResponse);
+  rpc GetMarketplaceItems(MarketplaceRequest) returns (MarketplaceResponse);
+  rpc ReportLostFound(LostFoundRequest) returns (LostFoundResponse);
+  rpc GetLostFoundList(GetLostFoundRequest) returns (GetLostFoundResponse);
+  rpc GetNewsFeed(NewsFeedRequest) returns (NewsFeedResponse);
+  rpc CancelEventRegistration(CancelEventRequest) returns (CancelEventResponse);
+}
+
+message BookSpaceRequest { string space_id = 1; string student_id = 2; string start_time = 3; string end_time = 4; }
+message BookSpaceResponse { bool success = 1; string message = 2; string booking_id = 3; }
+
+message EventRegistrationRequest { string event_id = 1; string student_id = 2; }
+message EventRegistrationResponse { bool success = 1; string message = 2; }
+
+message AdRequest { string student_id = 1; string title = 2; string description = 3; float price = 4; }
+message AdResponse { bool success = 1; string ad_id = 2; }
+
+message FeedbackRequest { string student_id = 1; string text = 2; string category = 3; }
+message FeedbackResponse { bool success = 1; string ticket_id = 2; }
+
+message EventsListRequest {}
+message EventItem { string id = 1; string title = 2; string date = 3; string location = 4; int32 spots_left = 5; }
+message EventsListResponse { repeated EventItem events = 1; }
+
+message CancelBookingRequest { string booking_id = 1; string student_id = 2; }
+message CancelBookingResponse { bool success = 1; }
+
+message CoworkingSpacesRequest {}
+message SpaceItem { string id = 1; string name = 2; bool available = 3; int32 capacity = 4; }
+message CoworkingSpacesResponse { repeated SpaceItem spaces = 1; }
+
+message MarketplaceRequest {}
+message MarketplaceItem { string id = 1; string title = 2; float price = 3; string seller = 4; string description = 5; }
+message MarketplaceResponse { repeated MarketplaceItem items = 1; }
+
+message LostFoundRequest { string student_id = 1; string item = 2; string description = 3; string status = 4; }
+message LostFoundResponse { bool success = 1; string id = 2; }
+
+message GetLostFoundRequest {}
+message LostFoundItem { string id = 1; string item = 2; string description = 3; string status = 4; string date = 5; }
+message GetLostFoundResponse { repeated LostFoundItem items = 1; }
+
+message NewsFeedRequest {}
+message NewsItem { string id = 1; string title = 2; string date = 3; string category = 4; string content = 5; }
+message NewsFeedResponse { repeated NewsItem news = 1; }
+
+message CancelEventRequest { string event_id = 1; string student_id = 2; }
+message CancelEventResponse { bool success = 1; }

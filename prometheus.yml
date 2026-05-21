@@ -1,0 +1,9 @@
+
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: 'aitu-gateway'
+    static_configs:
+      # Внутри Docker сеть видит твой локальный комп как host.docker.internal
+      - targets: ['host.docker.internal:3000']
