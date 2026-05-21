@@ -1,0 +1,4 @@
+DROP TABLE IF EXISTS dormitories CASCADE;
+DROP TABLE IF EXISTS transactions CASCADE;
+DROP TABLE IF EXISTS finance_accounts CASCADE;
+DROP TABLE IF EXISTS document_requests CASCADE;
